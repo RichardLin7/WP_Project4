@@ -4,58 +4,88 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Conway's Game of Life</title>
+    <title>Vehicle Spot Selection</title>
     <link rel="stylesheet" type="text/css" href="test.css" />
   </head>
   <body>
-    <?php $ret = loginstate();?>
     <div class="header">
-      <h1>Conway's Game of Life - Game</h1>
-      <h3>Web Programing - Project 3</h3>
+      <h1>Vehicle Spot Selection</h1>
+      <h3>Web Programing - Project 4</h3>
     </div>
 
-    <div class="websitelinks">
-      <a href="<?=$ret[3]?>"><?=$ret[1]?></a>
-			<a href="<?=$ret[2]?>" style="<?=$ret[4] ?>"><?=$ret[0]?></a>
-    </div>
 
     <div id="game"></div>
 
     <div class="footer">
-      <h2>Play Controls</h2>
-      <p>
-        <select name="pattern" id="pattern" onchange="showPattern(this.value)">
-          <option value="default">Default</option>
-          <option value="block">Block</option>
-          <option value="blinker">Blinker</option>
-          <option value="beacon">Beacon</option>
-          <option value="glider">Glider</option>
-          <option value="random">Random</option>
-        </select>
-        <br />
-        <button onclick="startGame()" id="start">START</button><br />
-        <button onclick="stopGame()" id="stop">STOP</button><br />
-        <button id="next">INCREMENT 1 GENERATION</button><br />
-        <button id="nextall">INCREMENT 23 GENERATIONS</button><br />
-        <button onclick="resetGame()" id="reset">RESET GAME</button><br />
-      </p>
+	<p> 
+	Interesting.
+	<br>
+	<button onclick="" id="back">Back</button>
+	<button onclick="" id="next">Continue</button><br />
+        
+	<br>
+	<br>
+	</p>
     </div>
   </body>
-  <?php
-    function loginstate(){
-    $logins = false;
-	$user = $_COOKIE['user'];
-    if(isset($_COOKIE['user']))
-      if(!empty($_COOKIE['user']))
-        $logins = true;
-		$user = $_COOKIE['user'];
-     if(!$logins){
-           $array = array("Sign Up", "Login","signup.php","login.php","");
-     }else{
-           $array = array("", "Log out", "", "logout.php","display: none;");
-     } 
-     return $array;
+<script type="text/javascript">
+let cells;
+let newCells;
+let start = false;
+let intervalId;
+let numRows = 5;
+let numCols = 10;
+let oldselected;
+let selected;
+
+window.onload = () => {
+  //cells = createCells();
+  setStartingGrid();
+};
+
+function setStartingGrid() {
+  let gameDiv = document.getElementById("game");
+  for (let i = 0; i < numRows; i++) {
+    let row = document.createElement("div");
+    row.classList.add("row");
+    for (let j = 0; j < numCols; j++) {
+      let num = i * numCols + j;
+      let button = document.createElement("button");
+      button.classList.add("testButton");
+      button.setAttribute("id", num);
+      row.appendChild(button);
+      button.setAttribute("onclick", "gridClicked(this.id)");
+	button.style.backgroundColor = "white";
+button.innerHTML = num;
     }
-	?>
+    gameDiv.appendChild(row);
+  }
+}
+
+function gridClicked(clickedId) {
+  let button = document.getElementById(clickedId);
+  let x = Math.floor(clickedId / numRows);
+  let y = clickedId % numCols;
+oldselected = selected;
+selected = clickedId;
+
+button.style.backgroundColor = "blue";
+if(oldselected != 'undefined'){
+let oldButton = document.getElementById(oldselected);
+oldButton.style.backgroundColor = "white";
+}
+
+
+//if(button.style.backgroundColor != "white"){
+  //button.style.backgroundColor = "white";
+//}
+//else{
+//button.style.backgroundColor = "blue";
+//}
+
+}
+
+
+</script>
+
 </html>
-<script src="test.js"></script>
