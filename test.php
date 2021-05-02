@@ -20,8 +20,9 @@
 	<p> 
 	Interesting.
 	<br>
-	<button onclick="" id="back">Back</button>
-	<button onclick="" id="next">Continue</button><br />
+	<form action="creditCard.php" method="post">
+	<input type="hidden" id="selectedId" name="finalId" value="">
+	<input type="submit" value="next"/>
         
 	<br>
 	<br>
@@ -63,11 +64,13 @@ button.innerHTML = num;
 }
 
 function gridClicked(clickedId) {
+document.getElementById("selectedId").value = clickedId;
   let button = document.getElementById(clickedId);
   let x = Math.floor(clickedId / numRows);
   let y = clickedId % numCols;
 oldselected = selected;
 selected = clickedId;
+
 
 button.style.backgroundColor = "blue";
 if(oldselected != 'undefined'){

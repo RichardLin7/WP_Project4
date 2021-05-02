@@ -48,9 +48,9 @@ function creditType(){
 </head>
 <body>
 <h1>Credit Card Payment</h1>
-
+<h3>Parking Spot: <?php echo $_POST['finalId'];?></h3>
 	<div class="payment">
-		<form name="creditForm" action="/action.php" onsubmit= "return creditType()"  method="post">
+	<form name="creditForm" action="/action.php" onsubmit= "return creditType()"  method="post">
 			<fieldset>
 
 <ul>
