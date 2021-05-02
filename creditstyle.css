@@ -1,0 +1,38 @@
+fieldset {
+	background-color: white;
+	border: 1px outset black;
+	border-radius: 10px;
+	width: 350px;
+	 margin: 100px auto;
+
+}
+label{
+	padding-right:50px;
+}
+ul{
+	 list-style-type: none;
+}
+
+
+.card_number{
+	
+	margin-right:5px;
+}
+.question_mark{
+	width:5%;
+
+	
+}
+div{
+	display:inline-block;
+}
+div label{
+	display:block;
+}
+.cardType{
+	border: 1px solid gray;
+	float:right;
+	color: blue;
+	margin-right:50px;
+	
+}
