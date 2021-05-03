@@ -12,10 +12,10 @@
 	   <div id = 'box'>
         <form action="login.php" method="post" enctype="multipart/form-data">
             <fieldset>
-               <legend>Welcome!</legend>
-               <label>Your Username: <?=signup()?></label>
+               <legend>Welcome <?=signup()?>!</legend>
                <br>
-               <label>Your Password: <?=$_POST['pw']?></label>
+               <label>Start preping for your next trip today!</label>
+               <br>
                <br>
                <button name="logintype" class ='button' type="submit" value="login1">Go to Login</button>
             </fieldset>
@@ -23,10 +23,10 @@
       </div>	
 	</body>
 
-	<?php function 
-   signup(){
+   <?php 
+   function signup(){
       $error = false;
-		$req = array('name','pw');
+		$req = array('user','pw');
       $errtype = "empty field";
       setcookie('backpage', "signup.php", time() + (86400 * 30), "/");
 		foreach($req as $field){
@@ -35,9 +35,9 @@
 	   }
 
       if(!$error){
-		   if (strlen($_POST['name'])<5 || strlen($_POST['name'])>12) {
+		   if (strlen($_POST['user'])<5 || strlen($_POST['user'])>12) {
                 $error = true;
-                $errtype = 'invalid name';
+                $errtype = 'invalid user';
          }
       }
       if(!$error){   
@@ -52,29 +52,23 @@
          exit();
       }
        
-      $single = fopen('users.txt','a');
-      $originstring = file_get_contents('users.txt');
-      $data = explode("\n",$originstring);
-      $newuser = $_POST['name'].",".$_POST['pw'].",1\n";
+      require 'vendor/autoload.php';
+      $client = new MongoDB\Client("mongodb+srv://proj4user:NH0QH1bumcajxjHp@cluster0.vfbdf.mongodb.net/Project4?retryWrites=true&w=majority");
+      $collection = $client->Project4->users;
 
-      try {
-         foreach($data as $field){
-            $ppl = explode(',',$field);
-            $errtype = 'account exist';
-            if($ppl[0] == $_POST['name']){ 
-               setcookie('prev', $errtype, time() + (86400 * 30), "/");
-               header("Location: error.php");
-               exit();
-            }
-         }
-      } catch (Exception $e) {
-         echo 'Caught exception: ',  $e->getMessage(), "\n";
+      // $cursor = $collection->find(['user' => $_POST['user'], 'password' => $_POST['pw']]);
+      $cursor = $collection->findOne(['username' => $_POST['user']]);
+
+      if($cursor != null){
+         $errtype = 'account exist';
+         setcookie('prev', $errtype, time() + (86400 * 30), "/");
+         header("Location: error.php");
+         exit();
       }
 
-      fwrite($single,$newuser);
-      fclose($single);
-      setcookie('name',$_POST['name'],time() + (86400 * 30), "/"); 
-      return $_POST['name'];
+      $result = $collection->insertOne( [ 'createdAt' => date("Y-m-d H:i:s"), 'username' => $_POST['user'], 'password' => $_POST['pw'], 'fname' => $_POST['fname'], 'lname' => $_POST['lname'] ] );
+      setcookie('user',$_POST['user'],time() + (86400 * 30), "/"); 
+      return $_POST['fname'];
    }
    ?>
 </html>

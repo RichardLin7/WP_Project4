@@ -32,7 +32,7 @@
 	    	return "Password is invalid, it must be a 5~12 long and only contains numbers and letters";
 	    	break;
 		case "account exist":
-	    	return "The username is already in used";
+	    	return "The username is already in use";
 	    	break;
 		case "account not found":
 		    return "The username is not in our database";

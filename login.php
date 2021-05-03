@@ -13,8 +13,8 @@
 				<fieldset>
 					<legend>Login:</legend>
 					<div id = 'line'>
-						<strong> <label for="name">UserName: </label> </strong>
-			 			<input type="text" id="name" name="name" size="12" required>
+						<strong> <label for="user">Username: </label> </strong>
+			 			<input type="text" id="user" name="user" size="12" required>
 					</div><br><br>
 					<div id = 'line'>
              			<strong> <label for="pw">Password: </label> </strong>

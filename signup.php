@@ -13,13 +13,23 @@
 				<fieldset>
 				<legend>New User Signup:</legend>
 				<div id = 'line'>
-					<strong> <label for="name">UserName <br>(letters & number): </label></strong>
-			 		<input type="text" id="name" name="name" size="12" placeholder="5-12 characters" required>
+					<strong> <label for="user">UserName <br>(letters & number): </label></strong>
+			 		<input type="text" id="user" name="user" size="12" placeholder="5-12 characters" required>
 				</div><br>
 				<div id = 'line'>
             		<strong>
             		<label for="pw">Password <br>(letters & number):</label></strong>
 					<input type="text" id="pw" name="pw" maxlength="12" size="12" placeholder="5-12 characters" required>
+	    		</div><br>
+				<div id = 'line'>
+            		<strong>
+            		<label for="fname">First Name:</label></strong>
+					<input type="text" id="fname" name="fname" maxlength="12" size="12" placeholder="5-12 characters" required>
+	    		</div><br>
+				<div id = 'line'>
+            		<strong>
+            		<label for="lname">Last Name:</label></strong>
+					<input type="text" id="lname" name="lname" maxlength="12" size="12" placeholder="5-12 characters" required>
 	    		</div><br>
 	    		<input type="submit" value="Sign Up"/>
 	    		</fieldset>

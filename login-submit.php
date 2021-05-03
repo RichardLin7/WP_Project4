@@ -31,12 +31,12 @@
       return login();}
     elseif(empty($_COOKIE['user'])){
       return login();}
-    else{ return $_COOKIE['user'];}
+    else{ return;}
   }
 
 	function login(){
     $error = false;
-		$req = array('name','pw');
+		$req = array('user','pw');
     $errtype = 'empty field';
     setcookie('backpage', "login.php", time() + (86400 * 30), "/");
 
@@ -46,7 +46,7 @@
 	  }
 
     if(!$error){
-		  if (strlen($_POST['name'])<5 || strlen($_POST['name'])>12) {
+		  if (strlen($_POST['user'])<5 || strlen($_POST['user'])>12) {
         $error = true;
         $errtype = 'invalid name';
       }
@@ -65,26 +65,22 @@
       exit();
     }
 
-    $originstring = file_get_contents('users.txt');
-    $data = explode("\n",$originstring);
-
-    $newuser = $_POST['name'].",".$_POST['pw']."\n";
+    require 'vendor/autoload.php';
+    $client = new MongoDB\Client("mongodb+srv://proj4user:NH0QH1bumcajxjHp@cluster0.vfbdf.mongodb.net/Project4?retryWrites=true&w=majority");
+    $collection = $client->Project4->users;
 
     try {
       $finduser = false;
       $passwordmatch = false;
-      foreach($data as $field){
-        if(!empty($field)){
-          $ppl = explode(',',$field);
-          if($ppl[0] == $_POST['name']){ 
+      $cursor = $collection->findOne(['username' => $_POST['user']]);
+      if($cursor != null){ 
             $finduser = true;
-            if($ppl[1] == $_POST['pw']){
+            $cursor = $collection->findOne(['password' => $_POST['pw']]);
+            if($cursor != null){
               $passwordmatch = true;
-              setcookie('user',  $_POST['name'], time() + (86400 * 30), "/");
+              setcookie('user',  $_POST['user'], time() + (86400 * 30), "/");
             }
           } 
-        }
-      } 
     }
     catch (Exception $e) {
       echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -103,8 +99,7 @@
       header("Location: error.php");
       exit();
     }
-    return $_POST['name'];
-    // return;
+    return;
   }
 	?>
 </html>
