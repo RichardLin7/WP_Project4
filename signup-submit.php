@@ -2,7 +2,7 @@
 <html lang="en">
 	<head><meta charset="UTF-8">
 		<title>Sign up success</title>
-		<link href="stylesheet.css" type="text/css" rel="stylesheet" />
+		<link href="test.css" type="text/css" rel="stylesheet" />
 	</head>
 	
 	<body>
@@ -66,7 +66,7 @@
          exit();
       }
 
-      $result = $collection->insertOne( [ 'createdAt' => date("Y-m-d H:i:s"), 'username' => $_POST['user'], 'password' => $_POST['pw'], 'fname' => $_POST['fname'], 'lname' => $_POST['lname'] ] );
+      $result = $collection->insertOne( ['creditcard' => null, 'booked_flight' => null, 'booked_parking_space' => null, 'createdAt' => date("Y-m-d H:i:s"), 'username' => $_POST['user'], 'password' => $_POST['pw'], 'fname' => $_POST['fname'], 'lname' => $_POST['lname'] ] );
       setcookie('user',$_POST['user'],time() + (86400 * 30), "/"); 
       return $_POST['fname'];
    }

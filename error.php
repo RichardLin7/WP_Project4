@@ -2,7 +2,7 @@
 <html lang="en">
 	<head><meta charset="UTF-8">
 		<title>Error</title>
-		<link href="stylesheet.css" type="text/css" rel="stylesheet" />
+		<link href="test.css" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
 		<div class="header">
@@ -41,8 +41,11 @@
 		    return "The password does not match your username";
 		    break;
 		case "not login":
-		    return "Please login before play the game";
+		    return "Please login first";
 		    break;
+		case "not selected":
+			return "Please select a spot first";
+			break;
  	   default:
 			return "Undefined error";
        }

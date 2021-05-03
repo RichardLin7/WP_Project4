@@ -3,36 +3,30 @@ fieldset {
 	border: 1px outset black;
 	border-radius: 10px;
 	width: 350px;
-	 margin: 100px auto;
+	margin: 100px auto;
+}
+label {
+	padding-right: 50px;
+}
+ul {
+	list-style-type: none;
+}
 
+.card_number {
+	margin-right: 5px;
 }
-label{
-	padding-right:50px;
+.question_mark {
+	width: 5%;
 }
-ul{
-	 list-style-type: none;
+div {
+	display: inline-block;
 }
-
-
-.card_number{
-	
-	margin-right:5px;
+div label {
+	display: block;
 }
-.question_mark{
-	width:5%;
-
-	
-}
-div{
-	display:inline-block;
-}
-div label{
-	display:block;
-}
-.cardType{
+.cardType {
 	border: 1px solid gray;
-	float:right;
+	float: right;
 	color: blue;
-	margin-right:50px;
-	
+	margin-right: 50px;
 }

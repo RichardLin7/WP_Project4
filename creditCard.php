@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="creditstyle.css" type="text/css" rel="stylesheet"/>
+<link href="test.css" type="text/css" rel="stylesheet"/>
 <script>
 
 /*This is the js code block for the credit card type validation. 
@@ -16,29 +16,25 @@ function printCard(elemId, hintMsg) {
     document.getElementById(elemId).innerHTML = hintMsg;
 }
 function creditType(){
-   var ccnumber=document.getElementById("card_num").value;
-
-	
+   	var ccnumber=document.getElementById("card_num").value;
 	var visa = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     var mastercard = /^(?:5[1-5][0-9]{14})$/;
 	var amex=/^(?:3[47][0-9]{13})$/;
-  if(visa.test(ccnumber)==true)
-        {printCard("cardType","visa");
+  	if(visa.test(ccnumber)==true)
+        {printCard("cardType","Card Type: Visa");
         return false;
-		
         }
-		
 		else if (mastercard.test(ccnumber)==true)
-		{printCard("cardType","Mastercard")
+		{printCard("cardType","Card Type: Mastercard")
 		return false;
 		}
 		else if (amex.test(ccnumber)==true)
-		{printCard("cardType","American Express")
+		{printCard("cardType","Card Type: American Express")
 		return false;
 		}
-      else
+      	else
         {
-		alert("Not valid");
+		alert("Not a valid credit card");
 		return false;
         }	
 	
@@ -47,40 +43,47 @@ function creditType(){
 </script>
 </head>
 <body>
-<h1>Credit Card Payment</h1>
-<h3>Parking Spot: <?php echo $_POST['finalId'];?></h3>
-	<div class="payment">
-	<form name="creditForm" action="/action.php" onsubmit= "return creditType()"  method="post">
-			<fieldset>
-
-<ul>
-	<li>
-		<div>
-			<label >Card Number  </label>
-			<input class="card_number" name="card_number" id="card_num" type="text" size="16">
+	<div class="header">
+		<h1>Booking Flights and Parking Services</h1>
+		<h3>Web Programing - Project 4</h3>
+	</div>
+	<?php $ret = loginstate();?>
+    <div class="websitelinks">
+			<a href="<?=$ret[3]?>"><?=$ret[1]?></a>
+			<a href="<?=$ret[2]?>" style="<?=$ret[4] ?>"><?=$ret[0]?></a>
 		</div>
-
+	<h3>Credit Card Payment</h3>
+	<h3>Parking Spot: 
+	<?php Check(); 
+	echo $_POST['selectedId'];
+	setcookie('parking', $_POST['selectedId'], time() + (86400 * 30), "/");?>
+	</h3>
+	<div class="payment">
+	<form name="creditForm" action="checkout.php" method="post" enctype="multipart/form-data">
+		<fieldset>
+		<ul>
+		<li>
 		<div>
-			<label>  Security Code</label>
+			<label >Card Number (no dashes):</label>
+			<input class="card_number" name="card_num" id="card_num" type="text" size="16" onchange="creditType()">
+		</div>
+		<div class="cardType" id="cardType"></div>
+		<br>
+		<div>
+			<label>  Security Code:</label>
 			
 				<input class="security_code" name="security_code" type="text" size="6">
-				
-				<input class="question_mark" name="question_mark" type="text" size="1" value="?" >
-				
 		</div>
-
-	</li>
-
+		</li>
 		<br>
-
-	<li>
+		<li>
 		<div>
-			<label >Name on Card  </label>  
-				<input id="card_number" name="card_number" type="text" size="14">
+			<label >Name on Card:</label>  
+				<input id="card_name" name="card_name" type="text" size="14">
 		</div>
-
-<div>
-	<label>  Expiration</label>
+	<br>
+	<div>
+	<label>  Expiration:</label>
 		<select id="months" name="months"  size="1" >
 			<option value="MM">MM</option>
 			<option value="01">01</option>
@@ -95,8 +98,6 @@ function creditType(){
 			<option value="10">10</option>
 			<option value="11">11</option>
 			<option value="12">12</option>
-    
-
 		</select>
 	/
 		<select id="year" name="year"  size="1">
@@ -107,59 +108,68 @@ function creditType(){
 			<option value="24">24</option>
 			<option value="25">25</option>
 			<option value="26">26</option>
-
 		</select>
-			
-</div>
+	</div>
 		</li>
 		
-	
-	</ul>
- <input type="submit" value="Submit">    <div class="cardType" id="cardType"></div>
-	</fieldset>
-	
-	</form>
-</div>
+	<br>
 
-
-<div class="personal_information">
-		<form name="infoForm" action="/action.php" onsubmit= "return creditType()"  method="post">
-			<fieldset>
-
-<ul>
 	<li>
 		<div>
-			<label >Address  </label>
+			<label >Address:</label>
 			<input class="address" name="address" id="address" type="text" size="16">
 		</div>
-
+		<br>
 		<div>
-			<label>Billing Address</label>
+			<label>Billing Address:</label>
 			
 				<input class="bill_address" name="bill_address" type="text" size="16">
 				
 		</div>
-
 	</li>
-
 		<br>
-
 	<li>
 		<div>
-			<label >Phone Number  </label>  
-				<input id="phone_number" name="phone_number" type="text" size="10" value="( )">
+			<label >Phone Number:</label>  
+				<input id="phone_number" name="phone_number" type="text" size="10" value="">
+				<input type="hidden" id="parking" name="parking" value="<?=$_POST['selectedId']?>">
+				<!-- <input type="hidden" id="flight" name="flight" value=""> -->
 		</div>
 	</li>
-		<br>
-	
 	</ul>
- 
+ <input type="submit" value="Submit">
 	</fieldset>
 	
 	</form>
 </div>
-
 </body>
+<?php 
+  function loginstate(){
+    $logins = false;
+    if(isset($_COOKIE['user']))
+      if(!empty($_COOKIE['user']))
+        $logins = true;
+      if(!$logins){
+           $array = array("Sign Up", "Login","signup.php","login.php","");
+      }else{
+           $array = array("", "Log out", "", "logout.php","display: none;");
+     } 
+     return $array;
+  }
 
-
+function Check(){
+	setcookie('backpage', "test.php", time() + (86400 * 30), "/");
+	if(!isset($_COOKIE['user'])){
+		$errtype = 'not login';
+		setcookie('prev', $errtype, time() + (86400 * 30), "/");
+		header("Location: error.php");
+		exit();
+	} elseif($_POST['selectedId'] == ""){
+		$errtype = 'not selected';
+		setcookie('prev', $errtype, time() + (86400 * 30), "/");
+		header("Location: error.php");
+		exit();
+	}
+}
+?>
 </html>

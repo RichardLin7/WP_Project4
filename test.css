@@ -1,63 +1,82 @@
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Style the top navigation bar */
+.websitelinks {
+	overflow: hidden;
+	background-color: #333;
+}
+
+/* Style the topnav links */
+.websitelinks a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+/* Change color on hover */
+.websitelinks a:hover {
+	background-color: #ddd;
+	color: black;
 }
 
 /*Style for the grid*/
 .grid {
-  background: #000;
-  float: left;
-  height: 3vw;
-  width: 3vw;
-  margin: 0.15%;
+	background: #000;
+	float: left;
+	height: 3vw;
+	width: 3vw;
+	margin: 0.15%;
 }
 
-#game{
+ul {
+	list-style-type: none;
+}
 
-height: 60vh;
-width: 50%;
+#game {
+	height: 60vh;
+	width: 50%;
 
-display: block;
-margin-right: auto;
-margin-left: auto;
-
-
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .section {
-  margin: -1%;
-  padding: 20px;
+	margin: -1%;
+	padding: 20px;
 }
 
 /* Style the header */
 .header {
-  background-color: #82dbf7;
-padding: 1px;
-height: 20vh;
-  text-align: center;
-
+	background-color: #82dbf7;
+	padding: 1px;
+	height: 20vh;
+	text-align: center;
 }
-
 
 /* Create three unequal columns that floats next to each other */
 
 /* Left and right column */
 
-
 /* Login/Signup Buttons*/
 .column.side a {
-  font: bold 11px Arial;
-  text-decoration: none;
-  background-color: #eeeeee;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #cccccc;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #cccccc;
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #eeeeee;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #cccccc;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #cccccc;
 }
 
 /* Middle column */
-
 
 /* Clear floats after the columns */
 /* .row:after {
@@ -67,41 +86,41 @@ height: 20vh;
 } */
 
 .row {
-width: 55%;
-height: 20%;
+	width: 55%;
+	height: 20%;
 
-display: block;
-  margin-left: auto;
-  margin-right: auto;
-padding-top: 2%;
-padding-bottom: 2%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 2%;
+	padding-bottom: 2%;
 }
 
 .row .testButton {
-  width: 10%;
-height: 100%;
-border: 1px solid #cccccc;
+	width: 10%;
+	height: 100%;
+	border: 1px solid #cccccc;
 }
 
 button .clicked {
-  width: 10px;
-  height: 10px;
+	width: 10px;
+	height: 10px;
 }
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column.side,
-  .column.middle {
-    width: 100%;
-  }
+	.column.side,
+	.column.middle {
+		width: 100%;
+	}
 }
 
 /* Style the footer */
 .footer {
-  text-align: center;
-  overflow: hidden;
-  background-color: #82dbf7;
-height: 20vh;
+	text-align: center;
+	overflow: hidden;
+	background-color: #82dbf7;
+	height: 20vh;
 }
 
 /* .footer a {
@@ -112,3 +131,7 @@ height: 20vh;
   padding: 14px 16px;
   text-decoration: none;
 } */
+
+.cardType {
+	color: blue;
+}
