@@ -12,16 +12,16 @@
       <form action="test.php" method="post" enctype="multipart/form-data">
         <fieldset>
           <legend>Welcome!</legend>
-            <label><?=directl();?></label>
             <br>
             <p>
               Happy Booking!
             </p>
             <br>
-            <input type="submit" value="Go Back to Main Page"/>
+            <input type="submit" value="Go Back to Parking"/>
         </fieldset>
       </form>
     </div>	
+    <?=directl();?>
 	</body>
 
 

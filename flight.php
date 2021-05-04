@@ -8,12 +8,11 @@
     <link rel="stylesheet" type="text/css" href="test.css" />
   </head>
   <body>
- 
-  <?php
+  <?php 
   $ret = loginstate();
   ?>
     <div class="header">
-      <h1>Vehicle Spot Selection</h1>
+      <h1>Book Flight Selection</h1>
       <h3>Web Programing - Project 4</h3>
     </div>
     <div class="websitelinks">
@@ -28,33 +27,33 @@
 	Interesting.
 	<br>
 	<form action="creditCard.php" method="post">
-	  <input type="hidden" id="selectedId" name="selectedId" value="">
+	  <input type="hidden" id="flightId" name="flightId" value="">
 	<input type="submit" onvalue="Next"/>
         
 	<br>
 	<br>
 	</p>
-  </div>
+    </div>
   </body>
 <?php 
   function loginstate(){
-    $flight = false;
+    $flight = true;
     $logins = false;
     if(isset($_COOKIE['user']))
       if(!empty($_COOKIE['user']))
         $logins = true;
       if(!$logins){
-          if($flight == false){
-            $array = array("Sign Up", "Login","signup.php","login.php","","Book Flight", "flight.php");
-          }else{
-            $array = array("Sign Up", "Login","signup.php","login.php","","Reserve Parking","test.php");
-          }
+            if($flight == false){
+                $array = array("Sign Up", "Login","signup.php","login.php","","Book Flight", "flight.php");
+            }else{
+                $array = array("Sign Up", "Login","signup.php","login.php","","Reserve Parking","test.php");
+            }
       }else{
-        if($flight == false){
-          $array = array("", "Log out", "", "logout.php","display: none;","Book Flight", "flight.php");
-        }else{
-          $array = array("", "Log out", "", "logout.php","display: none;","Reserve Parking","test.php");
-      }
+            if($flight == false){
+                $array = array("", "Log out", "", "logout.php","display: none;","Book Flight", "flight.php");
+            }else{
+                $array = array("", "Log out", "", "logout.php","display: none;","Reserve Parking","test.php");
+        }
      } 
      return $array;
   }
@@ -65,7 +64,7 @@ let cells;
 let newCells;
 let start = false;
 let intervalId;
-let numRows = 5;
+let numRows = 4;
 let numCols = 10;
 let oldselected;
 let selected;
@@ -80,7 +79,7 @@ let takenSpots= [];
 
 function getSpaces(){
 const Http = new XMLHttpRequest();
-  const url = "https://project4node.herokuapp.com/spaces";
+  const url = "https://project4node.herokuapp.com/bookings";
   Http.open("GET", url, false);
 
   Http.onload = () => {
@@ -124,7 +123,7 @@ console.log(takenSpots + "yo");
 function gridClicked(clickedId) {
   let button = document.getElementById(clickedId);
 if(button.style.backgroundColor != "black"){
-document.getElementById("selectedId").value = clickedId;
+document.getElementById("flightId").value = clickedId;
   let x = Math.floor(clickedId / numRows);
   let y = clickedId % numCols;
 oldselected = selected;

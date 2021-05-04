@@ -40,6 +40,7 @@
                 $errtype = 'invalid user';
          }
       }
+      
       if(!$error){   
          if (strlen($_POST['pw'])<5 || strlen($_POST['pw'])>12) {
             $error = true;

@@ -49,14 +49,23 @@ function creditType(){
 	</div>
 	<?php $ret = loginstate();?>
     <div class="websitelinks">
+      		<a href="<?=$ret[6]?>"><?=$ret[5]?></a>
 			<a href="<?=$ret[3]?>"><?=$ret[1]?></a>
 			<a href="<?=$ret[2]?>" style="<?=$ret[4] ?>"><?=$ret[0]?></a>
 		</div>
 	<h3>Credit Card Payment</h3>
-	<h3>Parking Spot: 
+	<h3>
 	<?php Check(); 
-	echo $_POST['selectedId'];
-	setcookie('parking', $_POST['selectedId'], time() + (86400 * 30), "/");?>
+	if(isset($_POST['flightId'])){
+		echo "Flight Seating: ".$_POST['flightId'];
+		setcookie('flight', $_POST['flightId'], time() + (86400 * 30), "/");
+	}
+	if(isset($_POST['selectedId'])){
+		echo "Parking Spot: ".$_POST['selectedId'];
+		setcookie('parking', $_POST['selectedId'], time() + (86400 * 30), "/");
+	}
+	?>
+	
 	</h3>
 	<div class="payment">
 	<form name="creditForm" action="checkout.php" method="post" enctype="multipart/form-data">
@@ -132,8 +141,6 @@ function creditType(){
 		<div>
 			<label >Phone Number:</label>  
 				<input id="phone_number" name="phone_number" type="text" size="10" value="">
-				<input type="hidden" id="parking" name="parking" value="<?=$_POST['selectedId']?>">
-				<!-- <input type="hidden" id="flight" name="flight" value=""> -->
 		</div>
 	</li>
 	</ul>
@@ -144,18 +151,26 @@ function creditType(){
 </div>
 </body>
 <?php 
-  function loginstate(){
-    $logins = false;
-    if(isset($_COOKIE['user']))
-      if(!empty($_COOKIE['user']))
-        $logins = true;
-      if(!$logins){
-           $array = array("Sign Up", "Login","signup.php","login.php","");
-      }else{
-           $array = array("", "Log out", "", "logout.php","display: none;");
-     } 
-     return $array;
-  }
+function loginstate(){
+  $logins = false;
+  if(isset($_COOKIE['user']))
+	if(!empty($_COOKIE['user']))
+	  $logins = true;
+	if(!$logins){
+		if(isset($_COOKIE['flight'])){
+		  $array = array("Sign Up", "Login","signup.php","login.php","","Book Flight", "flight.php");
+		}else{
+		  $array = array("Sign Up", "Login","signup.php","login.php","","Reserve Parking","test.php");
+		}
+	}else{
+	  if(isset($_COOKIE['flight'])){
+		$array = array("", "Log out", "", "logout.php","display: none;","Book Flight", "flight.php");
+	  }else{
+		$array = array("", "Log out", "", "logout.php","display: none;","Reserve Parking","test.php");
+	}
+   } 
+   return $array;
+}
 
 function Check(){
 	setcookie('backpage', "test.php", time() + (86400 * 30), "/");
@@ -164,12 +179,12 @@ function Check(){
 		setcookie('prev', $errtype, time() + (86400 * 30), "/");
 		header("Location: error.php");
 		exit();
-	} elseif($_POST['selectedId'] == ""){
+	} elseif($_POST['selectedId'] == "" && $_POST['flightId'] == ""){
 		$errtype = 'not selected';
 		setcookie('prev', $errtype, time() + (86400 * 30), "/");
 		header("Location: error.php");
 		exit();
-	}
+	} 
 }
 ?>
 </html>
