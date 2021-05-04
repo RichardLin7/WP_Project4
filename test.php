@@ -56,13 +56,36 @@ let numRows = 5;
 let numCols = 10;
 let oldselected;
 let selected;
+let takenSpots= [];
 
-window.onload = () => {
-  //cells = createCells();
+ window.onload = async () => {
+
+
+  await getSpaces();
   setStartingGrid();
 };
 
+
+
+
+
+function getSpaces(){
+const Http = new XMLHttpRequest();
+  const url = "https://project4node.herokuapp.com/spaces";
+  Http.open("GET", url, false);
+
+  Http.onload = () => {
+    const data = JSON.parse(Http.response);
+    takenSpots = data.taken;
+	console.log(takenSpots);
+  };
+
+  Http.send();
+}
+
+
 function setStartingGrid() {
+console.log(takenSpots + "yo");
   let gameDiv = document.getElementById("game");
   for (let i = 0; i < numRows; i++) {
     let row = document.createElement("div");
@@ -74,7 +97,13 @@ function setStartingGrid() {
       button.setAttribute("id", num);
       row.appendChild(button);
       button.setAttribute("onclick", "gridClicked(this.id)");
-	    button.style.backgroundColor = "white";
+
+	if(takenSpots.includes(num)){
+	button.style.backgroundColor = "black";
+	}
+	else{
+      button.style.backgroundColor = "white";
+	}
       button.innerHTML = num;
     }
     gameDiv.appendChild(row);
@@ -82,8 +111,9 @@ function setStartingGrid() {
 }
 
 function gridClicked(clickedId) {
-  document.getElementById("selectedId").value = clickedId;
   let button = document.getElementById(clickedId);
+if(button.style.backgroundColor != "black"){
+document.getElementById("selectedId").value = clickedId;
   let x = Math.floor(clickedId / numRows);
   let y = clickedId % numCols;
 oldselected = selected;
@@ -103,7 +133,7 @@ oldButton.style.backgroundColor = "white";
 //else{
 //button.style.backgroundColor = "blue";
 //}
-
+}
 }
 </script>
 
